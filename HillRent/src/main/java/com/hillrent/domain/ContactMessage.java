@@ -50,7 +50,8 @@ public class ContactMessage implements Serializable {/**
 	private String body;
 	
 	
-	@Email
+	@Email(message="Provide correct an email")
+	//email validasyonu icin ozel mesaj belirlemezsek bizim localimize gore bir mesaj doner
 	@Column(length=50,nullable=false)
 	private String email;
 	
