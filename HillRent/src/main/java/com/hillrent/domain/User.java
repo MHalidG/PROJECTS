@@ -24,12 +24,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
 @Entity
 @Table(name="tbl_user")
 public class User {
 
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -54,14 +52,13 @@ public class User {
 	
 	@Column(length=15,nullable=false)
 	private String zipCode;
-	
-	
+		
 	@Column(nullable=false)
 	private boolean builtIn=false;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="tbl_user_roles",
-	joinColumns=@JoinColumn(name="user_id"),
+ 	joinColumns=@JoinColumn(name="user_id"),
 	inverseJoinColumns=@JoinColumn(name="role_id"))
 	private Set<Role> roles=new HashSet<>();
 }
