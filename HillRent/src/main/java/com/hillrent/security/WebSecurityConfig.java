@@ -12,6 +12,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.hillrent.security.jwt.AuthTokenFilter;
 
 import lombok.AllArgsConstructor;
 
@@ -23,8 +26,7 @@ import lombok.AllArgsConstructor;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private UserDetailsService userDetailsService;
-	
-	
+		
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -33,10 +35,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().
 	authorizeRequests().antMatchers("/register","/login").permitAll().anyRequest().authenticated();
 	
-	http.addFilterBefore(null, null)
+	http.addFilterBefore(authenticationJwtTokenFilter(),UsernamePasswordAuthenticationFilter.class);
 	
 	}
 	
+	@Bean
+	public AuthTokenFilter authenticationJwtTokenFilter() {
+		return new AuthTokenFilter();
+	}
 	
 	@Bean
 	@Override
