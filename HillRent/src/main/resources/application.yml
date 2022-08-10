@@ -16,8 +16,15 @@ spring:
   database-platform: org.hibernate.dialect.PostgreSQLDialect
   hibernate:
     ddl-auto: update
-    
-    
+
+
+
+hillrent:
+  app:
+   jwtSecret: hillrent@12    
+   jwtExpirationMs: 86400000
+   
+   
 logging:
  file:
   name: logs/hillrent.log
