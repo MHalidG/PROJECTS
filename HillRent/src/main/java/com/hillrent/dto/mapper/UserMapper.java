@@ -10,9 +10,9 @@ import com.hillrent.dto.UserDTO;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-	List<UserDTO> map(List<User> user);
+	
 
 	UserDTO userToUserDTO(User user);
-	
+	List<UserDTO> map(List<User> user);
 }
 

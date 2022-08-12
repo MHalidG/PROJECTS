@@ -46,6 +46,7 @@ public class JwtUtils {
 	public boolean validateJwtToken(String token) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+			return true;
 		} catch (ExpiredJwtException e) {
 			// Satiri secip surrond withten try catch block secti kendisi halletti
 			// TODO Auto-generated catch block
