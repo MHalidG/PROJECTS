@@ -33,3 +33,7 @@
 2022-08-13 00:02:24,063 INFO  [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet:Initializing Servlet 'dispatcherServlet'
 2022-08-13 00:02:24,064 INFO  [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet:Completed initialization in 1 ms
 2022-08-13 00:02:30,294 WARN  [http-nio-8080-exec-3] org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver:Resolved [org.springframework.security.authentication.BadCredentialsException: Bad credentials]
+2022-08-13 00:26:06,491 INFO  [RMI TCP Connection(27)-127.0.0.1] org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin:Application shutdown requested.
+2022-08-13 00:26:06,515 INFO  [RMI TCP Connection(27)-127.0.0.1] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-13 00:26:06,520 INFO  [RMI TCP Connection(27)-127.0.0.1] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
+2022-08-13 00:26:06,523 INFO  [RMI TCP Connection(27)-127.0.0.1] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.

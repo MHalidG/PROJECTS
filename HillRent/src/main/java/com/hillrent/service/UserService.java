@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -19,6 +21,7 @@ import com.hillrent.dto.UserDTO;
 import com.hillrent.dto.mapper.UserMapper;
 import com.hillrent.dto.request.RegisterRequest;
 import com.hillrent.dto.request.UpdatePasswordRequest;
+import com.hillrent.dto.request.UserUpdateRequest;
 import com.hillrent.exception.BadRequestException;
 import com.hillrent.exception.ConflictException;
 import com.hillrent.exception.ResourceNotFoundException;
@@ -107,4 +110,11 @@ public class UserService {
 		user.setPassword(hashedPassword);
 		userRepository.save(user);
 	}
+
+/*
+	public void updateUser(Long id, @Valid UserUpdateRequest userUpdateRequest) {
+		//TO DO:
+		
+	}
+	*/
 }
