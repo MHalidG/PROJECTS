@@ -100,14 +100,11 @@ public class UserController {
 		response.setSuccess(true);
 
 		/*
-		 * 
-		 * Thread thread=new Thread(new Runnable(){ public void run() {
-		 * 
-		 * } });
-		 * 
-		 * Thread olusturmak single argument alip single value donuyor
-		 * 
-		 * 
+		 Thread thread=new Thread(new Runnable(){ public void run() {
+		 
+		 } });
+		  
+		 Thread olusturmak single argument alip single value donuyor
 		 */
 
 		return ResponseEntity.ok(response);
@@ -124,9 +121,6 @@ public class UserController {
 		response.setSuccess(true);
 		
 		return ResponseEntity.ok(response);
-		
-		
 	}
 	
-
 }

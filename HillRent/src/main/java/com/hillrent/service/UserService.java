@@ -6,13 +6,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hillrent.domain.Role;
 import com.hillrent.domain.User;
@@ -58,7 +57,7 @@ public class UserService {
 	user.setEmail(registerRequest.getEmail());
 	user.setPassword(encodedPassword);
 	user.setPhoneNumber(registerRequest.getPhoneNumber());
-	user.setAddres(registerRequest.getAddress());
+	user.setAddress(registerRequest.getAddress());
 	user.setZipCode(registerRequest.getZipCode());
 	user.setRoles(roles);
 	
@@ -111,10 +110,24 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-/*
-	public void updateUser(Long id, @Valid UserUpdateRequest userUpdateRequest) {
-		//TO DO:
+	@Transactional
+	public void updateUser(Long id,UserUpdateRequest userUpdateRequest) {
+		boolean emailExist=userRepository.existsByEmail(userUpdateRequest.getEmail());
+		
+		User user=userRepository.findById(id).get();
+		
+		if(user.getBuiltIn()) {
+			throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
+		}
+		if(emailExist && !userUpdateRequest.getEmail().equals(user.getEmail())) {
+			throw new ConflictException(ErrorMessage.EMAIL_ALREADY_EXIST);
+		}
+		
+		userRepository.update(id,userUpdateRequest.getFirstName(),userUpdateRequest.getLastName(),
+				userUpdateRequest.getPhoneNumber(),userUpdateRequest.getEmail(),userUpdateRequest.getAddress(),
+				userUpdateRequest.getZipCode());
 		
 	}
-	*/
+	
+	
 }
