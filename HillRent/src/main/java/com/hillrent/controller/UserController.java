@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hillrent.dto.UserDTO;
+import com.hillrent.dto.request.AdminUserUpdateRequest;
 import com.hillrent.dto.request.UpdatePasswordRequest;
 import com.hillrent.dto.request.UserUpdateRequest;
 import com.hillrent.dto.response.HRResponse;
@@ -122,5 +124,32 @@ public class UserController {
 		
 		return ResponseEntity.ok(response);
 	}
+	
+	@DeleteMapping("/{id}/auth")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<HRResponse> deleteUser(@PathVariable Long id){
+		userService.removeById(id);
+	
+		HRResponse response = new HRResponse();
+		response.setMessage(ResponseMessage.DELETE_RESPONSE_MESSAGE);
+		response.setSuccess(true);
+		
+		return ResponseEntity.ok(response);
+	
+	}
+	
+	
+	@PutMapping("/{id}/auth")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<HRResponse> updateUserAuth(@PathVariable Long id, @Valid @RequestBody AdminUserUpdateRequest adminUserUpdateRequest){
+		
+		userService.updateUserAuth(id,adminUserUpdateRequest);
+		HRResponse response = new HRResponse();
+		response.setMessage(ResponseMessage.UPDATE_RESPONSE_MESSAGE);
+		response.setSuccess(true);
+		
+		return ResponseEntity.ok(response);
+	}
+	
 	
 }
