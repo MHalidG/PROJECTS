@@ -126,7 +126,7 @@ public class UserService {
 			throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
 		}
 		if (emailExist && !userUpdateRequest.getEmail().equals(user.getEmail())) {
-			throw new ConflictException(ErrorMessage.EMAIL_ALREADY_EXIST);
+			throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST,user.getEmail()));
 		}
 
 		userRepository.update(id, userUpdateRequest.getFirstName(), userUpdateRequest.getLastName(),
@@ -145,7 +145,7 @@ public class UserService {
 		}
 
 		if (emailExist && !adminUserUpdateRequest.getEmail().equals(user.getEmail())) {
-			throw new ConflictException(ErrorMessage.EMAIL_ALREADY_EXIST);
+			throw new ConflictException(String.format(ErrorMessage.EMAIL_ALREADY_EXIST,user.getEmail()));
 		}
 
 		if (adminUserUpdateRequest.getPassword() == null) {

@@ -50,6 +50,14 @@ public class HillRentExceptionHandler extends ResponseEntityExceptionHandler {
 		return buildResponseEntity(error);
 	}
 
+	@ExceptionHandler(ImageFileException.class)
+	protected ResponseEntity<Object> handleImageFileException(ImageFileException ex, WebRequest request) {
+		ApiResponseError error = new ApiResponseError(HttpStatus.BAD_REQUEST, ex.getMessage(),
+				request.getDescription(false));
+
+		return buildResponseEntity(error);
+	}
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
