@@ -1,5 +1,7 @@
 package com.hillrent.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hillrent.domain.ImageFile;
+import com.hillrent.dto.ImageFileDTO;
 import com.hillrent.dto.response.ImageSavedResponse;
 import com.hillrent.dto.response.ResponseMessage;
 import com.hillrent.service.ImageFileService;
@@ -60,6 +63,17 @@ public class ImageFileController {
 		
 	}
 	
+	//ResponseEntity Return iki sekilde kullanilabiliyor yukarda instancce seklinde newleyerek kullandik
+	//Asagidaki methodda da static sekilde ok methoduyla kullandik
+	//ucuncu sekil kullanimini da yazdik asagiya
+	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<List<ImageFileDTO>> getAllImages(){
+		List<ImageFileDTO> imageList=imageFileService.getAllImages();
+		
+		return ResponseEntity.ok(imageList);
+		//return ResponseEntity.status(HttpStatus.OK).body(imageList);
+	}
 	
 
 }

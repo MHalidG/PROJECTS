@@ -1,13 +1,17 @@
 package com.hillrent.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.hillrent.domain.ImageFile;
+import com.hillrent.dto.ImageFileDTO;
 import com.hillrent.exception.ImageFileException;
 import com.hillrent.exception.ResourceNotFoundException;
 import com.hillrent.exception.message.ErrorMessage;
@@ -42,7 +46,20 @@ public class ImageFileService {
 		return imageFile;
 	}
 	
-	
+	public List<ImageFileDTO> getAllImages(){
+		List<ImageFile> imageList=imageFileRepository.findAll();
+		
+		List<ImageFileDTO> files= imageList.stream().map(imFile->{
+			//fromCurrentContextPath methodu ile istediginiz bir resme link olusturabiliyruz
+				String imageUri= ServletUriComponentsBuilder.fromCurrentContextPath()
+					.path("/files/download/")
+					.path(imFile.getId())
+					.toUriString();
+			
+			return new ImageFileDTO(imFile.getName(),imageUri,imFile.getType(),imFile.getData().length);
+		}).collect(Collectors.toList());
+		return files;
+	}
 	
 	
 	
