@@ -23,50 +23,45 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-@Table(name="tbl_car")
+@Table(name = "tbl_car")
 @Entity
 public class Car {
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	
-	@Column(length=30,nullable=false)
+
+	@Column(length = 30, nullable = false)
 	private String model;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Integer doors;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Integer seats;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Integer luggage;
-	
-	@Column(length=30,nullable=false)
+
+	@Column(length = 30, nullable = false)
 	private String transmission;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Boolean airConditioning;
-	 
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Integer age;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Double pricePerHour;
-	
-	@Column(length=30,nullable=false)
+
+	@Column(length = 30, nullable = false)
 	private String fuelType;
-	
-	private Boolean builtIn=false;
-	
-	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="tbl_car_image",joinColumns = @JoinColumn(name="car_id"),
-	inverseJoinColumns=@JoinColumn(name= "imfile_id"))
+
+	private Boolean builtIn = false;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "tbl_car_image", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "imfile_id"))
 	private Set<ImageFile> image;
-	
-			
+
 }
