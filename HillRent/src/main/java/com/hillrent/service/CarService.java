@@ -26,21 +26,27 @@ public class CarService {
 	
 	private ImageFileRepository imageFileRepository;
 	
-	public void saveCar(CarDTO carDTO, String imageId) {
-	ImageFile imFile=imageFileRepository.findById(imageId).orElseThrow(()->new 
-				ResourceNotFoundException(String.format(imageId,ErrorMessage.IMAGE_NOT_FOUND_MESSAGE)));
-		
-
-	Car car= CarMapper.INSTANCE.carDTOToCar(carDTO);
+	private CarMapper carMapper;
 	
-	Set<ImageFile> imFiles=new HashSet<>();
-	imFiles.add(imFile);
+	public void saveCar(CarDTO carDTO, String imageId) {
+		ImageFile imFile=	 imageFileRepository.findById(imageId).
+			orElseThrow(()->new ResourceNotFoundException
+					(String.format(ErrorMessage.IMAGE_NOT_FOUND_MESSAGE, imageId)));
 		
-	car.setImage(imFiles);
-	carRepository.save(car);
+//		Car car= CarMapper.INSTANCE.carDTOToCar(carDTO);
+		
+		Car car= carMapper.carDTOToCar(carDTO);
+		
+		Set<ImageFile> imFiles=new HashSet<>();
+		imFiles.add(imFile);
+		car.setImage(imFiles);
+		
+		carRepository.save(car);
 		//mapstruct ThirdParty dependencylerden birisi.
 		//Performans olarak en iyi olanlardan bu dependency.
 		//modelMapper da var Third Party mapperlardan birisi.
 	}
+	
+	
 
 }
