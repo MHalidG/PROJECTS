@@ -1,9 +1,11 @@
 package com.hillrent.service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hillrent.domain.Car;
 import com.hillrent.domain.ImageFile;
@@ -27,6 +29,23 @@ public class CarService {
 	private ImageFileRepository imageFileRepository;
 	
 	private CarMapper carMapper;
+	
+	
+	@Transactional(readOnly=true)
+	public List<CarDTO> getAllCars(){
+		List<Car> carList=carRepository.findAll();
+		return carMapper.map(carList);
+	}
+	
+	//http://localhost:8080/car/visitors/1
+	@Transactional(readOnly=true)
+	public CarDTO findById(Long id) {
+		Car car=carRepository.findById(id).orElseThrow(()-> new 
+				ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE,id)));
+		return carMapper.carToCarDTO(car);
+	}
+	
+	
 	
 	public void saveCar(CarDTO carDTO, String imageId) {
 		ImageFile imFile=	 imageFileRepository.findById(imageId).

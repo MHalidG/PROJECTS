@@ -39,7 +39,7 @@ public class ContactMessageController {
 	private ContactMessageService contactMessageService;
 
 	// localhost:8080/contactmessage/visitor
-	@PostMapping("/visitor")
+	@PostMapping("/visitors")
 	public ResponseEntity<Map<String, String>> createMessage(@Valid @RequestBody ContactMessage contactMessage) {
 		contactMessageService.createContactMessage(contactMessage);
 
