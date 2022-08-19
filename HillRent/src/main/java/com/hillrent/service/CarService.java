@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +68,10 @@ public class CarService {
 		//modelMapper da var Third Party mapperlardan birisi.
 	}
 	
+	@Transactional(readOnly=true)
+	public Page<CarDTO> findAllWithPage(Pageable pageable){
+		return carRepository.findAllCarWithPage(pageable);
+	}
 	
 
 }
