@@ -13,6 +13,7 @@ import com.hillrent.domain.Car;
 import com.hillrent.domain.ImageFile;
 import com.hillrent.dto.CarDTO;
 import com.hillrent.dto.mapper.CarMapper;
+import com.hillrent.exception.BadRequestException;
 import com.hillrent.exception.ResourceNotFoundException;
 import com.hillrent.exception.message.ErrorMessage;
 import com.hillrent.repository.CarRepository;
@@ -73,5 +74,47 @@ public class CarService {
 		return carRepository.findAllCarWithPage(pageable);
 	}
 	
-
+/*
+ 
+ *This method is used to update a ca
+ @param id	 		Car id of the car that will be updated
+ @param imageId		This is image id
+ @param carDTO		This is carDTO to keep data about the car
+ 
+ */
+	
+	@Transactional
+	public void updateCar(Long id, String imageId,CarDTO carDTO) {
+		Car foundCar=carRepository.findById(id).orElseThrow(()->new ResourceNotFoundException
+				(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+		
+		ImageFile imFile=imageFileRepository.findById(imageId).orElseThrow(()->new ResourceNotFoundException
+				(String.format(ErrorMessage.IMAGE_NOT_FOUND_MESSAGE, imageId)));
+		
+		if (foundCar.getBuiltIn()) {
+			throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
+		}
+		Set<ImageFile> imgs=foundCar.getImage();
+		imgs.add(imFile);
+		
+		Car car=carMapper.carDTOToCar(carDTO);
+	
+		car.setId(foundCar.getId());
+		car.setImage(imgs);
+		carRepository.save(car);
+	
+	
+	}
+	public void deleteById(Long id) {
+		Car car=carRepository.findById(id).orElseThrow(()->new ResourceNotFoundException
+				(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+		
+		if(car.getBuiltIn()) {
+			throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
+		}
+		carRepository.deleteById(id);
+	}
+	
+	
+	
 }

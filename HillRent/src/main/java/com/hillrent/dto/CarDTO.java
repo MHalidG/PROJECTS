@@ -27,7 +27,7 @@ public class CarDTO {
     @NotNull(message = "Please provide car model")
 	private String model;
 
-    @NotNull(message = "Please provide car doors info")
+    @NotNull(message = "Please provide car door info")
 	private Integer doors;
 
     @NotNull(message = "Please provide car seats info")
@@ -57,12 +57,14 @@ public class CarDTO {
 
 	private Set<String> image;
 
-	private CarDTO(Car car) {
+	
+	public CarDTO(Car car) {
 		this.id=car.getId();
 		this.model=car.getModel();
 		this.doors=car.getDoors();
 		this.seats=car.getSeats();
 		this.luggage=car.getLuggage();
+		this.transmission=car.getTransmission();
 		this.airConditioning=car.getAirConditioning();
 		this.age=car.getAge();
 		this.pricePerHour=car.getPricePerHour();
@@ -74,7 +76,7 @@ public class CarDTO {
 	public Set<String> getImageId(Set<ImageFile> images){
 		Set<String> imgStrSet=new HashSet<>();		
 		imgStrSet=images.stream().map(image->image.getId().toString()).collect(Collectors.toSet());		
-		return imgStrSet;	
+		return imgStrSet;
 	}
 	
 }

@@ -7,4 +7,7 @@ public final static String UPDATE_RESPONSE_MESSAGE="Update Successfully Done";
 public final static String DELETE_RESPONSE_MESSAGE="User Succsessfully Deleted";
 public final static String IMAGE_SAVED_RESPONSE_MESSAGE="Image File Saved Successfully";
 
+public final static String CAR_SAVED_RESPONSE_MESSAGE="Car Saved Successfully";
+public final static String CAR_UPDATED_RESPONSE_MESSAGE="Car Updated Successfully";
+public final static String CAR_DELETED_RESPONSE_MESSAGE="Car Deleted Successfully";
 }
