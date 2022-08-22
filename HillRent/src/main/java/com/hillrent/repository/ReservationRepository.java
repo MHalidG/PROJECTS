@@ -2,6 +2,7 @@ package com.hillrent.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,10 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import com.hillrent.domain.Reservation;
 import com.hillrent.domain.enums.ReservationStatus;
+import com.hillrent.dto.ReservationDTO;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,Long>{
 
+	List<ReservationDTO> findAllBy();
+	
+	Optional<ReservationDTO> findDTOById(Long id);
 	
 	@Query("SELECT r FROM Reservation r "
 			+ "JOIN FETCH Car cd on r.carId=cd.id WHERE "

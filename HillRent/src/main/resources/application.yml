@@ -4,6 +4,9 @@ server:
     include-message: always
     include-binding-errors: always
     include-stacktrace: never
+ #servlet:
+    #context-path:/car-rental/api
+    #"http://localhost:8080/car-rental/api" Base path bu oluyor.
     
 spring:
  datasource:

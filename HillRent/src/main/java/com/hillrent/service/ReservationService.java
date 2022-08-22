@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hillrent.domain.Car;
 import com.hillrent.domain.Reservation;
 import com.hillrent.domain.User;
 import com.hillrent.domain.enums.ReservationStatus;
+import com.hillrent.dto.ReservationDTO;
 import com.hillrent.dto.mapper.ReservationMapper;
 import com.hillrent.dto.request.ReservationRequest;
 import com.hillrent.exception.BadRequestException;
@@ -31,14 +33,20 @@ public class ReservationService {
 	
 	private CarRepository carRepository;
 	
-	private CarService carService;
-	
 	private UserRepository userRepository;
 	
 	private ReservationMapper reservationMapper;
 	
 	
-	
+	@Transactional(readOnly=true)
+	public List<ReservationDTO> getAllReservations(){
+		return reservationRepository.findAllBy();
+	}
+	public ReservationDTO findById(Long id) {
+		return reservationRepository.findDTOById(id).orElseThrow(()->new 
+				ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+		
+	}
 	
 	public void createReservation(ReservationRequest reservationRequest, Long userId,Long carId) {
 		
@@ -99,7 +107,7 @@ public class ReservationService {
 		}
 		
 	}
-	
+
 	
 	
 	
