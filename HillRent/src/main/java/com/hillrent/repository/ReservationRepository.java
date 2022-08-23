@@ -32,6 +32,8 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long>{
 			+ "cd.id=:carId and (r.status not in :status) and (r.pickUpTime BETWEEN :pickUpTime and :dropOffTime)")
 	List<Reservation> checkCarStatus(@Param("carId") Long carId, @Param("pickUpTime") LocalDateTime pickUpTime,
 			@Param("dropOffTime") LocalDateTime dropOffTime, @Param("status") ReservationStatus[] status);
+
+	Optional<ReservationDTO> findByIdAndUserId(Long id, User user);
 	
 
 }

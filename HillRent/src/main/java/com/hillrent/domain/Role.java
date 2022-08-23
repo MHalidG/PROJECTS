@@ -36,5 +36,11 @@ public class Role {
 	//boyle olursa db de bakinca anlayamayiz hangi role oldugunu
 	@Column(length=20)
 	private RoleType name;
+
+	@Override
+	public String toString() {
+		return "Role [name=" + name + "]";
+	}
+	
 	
 }

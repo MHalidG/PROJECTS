@@ -163,6 +163,16 @@ public Double getTotalPrice(Long carId, LocalDateTime pickUpTime, LocalDateTime 
 		}
 		reservationRepository.deleteById(id);
 	}
+
+	@Transactional(readOnly = true)
+	public ReservationDTO findByIdAndUserId(Long id, Long userId) {
+		User user=userRepository.findById(userId).orElseThrow(()->
+		new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, userId)));
+		 
+		return reservationRepository.findByIdAndUserId(id, user).orElseThrow(()->new 
+				 ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE,id)));
+		 
+	}
 	
 	
 }
