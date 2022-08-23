@@ -18,6 +18,7 @@ import com.hillrent.exception.ResourceNotFoundException;
 import com.hillrent.exception.message.ErrorMessage;
 import com.hillrent.repository.CarRepository;
 import com.hillrent.repository.ImageFileRepository;
+import com.hillrent.repository.ReservationRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -33,6 +34,7 @@ public class CarService {
 	
 	private CarMapper carMapper;
 	
+	private ReservationRepository reservationRepository;
 	
 	@Transactional(readOnly=true)
 	public List<CarDTO> getAllCars(){
@@ -108,6 +110,12 @@ public class CarService {
 	public void deleteById(Long id) {
 		Car car=carRepository.findById(id).orElseThrow(()->new ResourceNotFoundException
 				(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
+		
+		boolean exist=reservationRepository.existsByCarId(car);
+		
+		if(exist) {
+			throw new BadRequestException(ErrorMessage.CAR_USED_BY_RESERVATION_MESSAGE);
+		}
 		
 		if(car.getBuiltIn()) {
 			throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);

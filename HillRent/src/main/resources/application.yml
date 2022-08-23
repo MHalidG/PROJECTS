@@ -38,11 +38,16 @@ logging:
     file: "%d %-5level [%thread] %logger:%msg%n"
     
  level:
-  org.springframework.web: INFO
-  org.hibernate: INFO
-  com.hillrent: DEBUG
+  '[org.springframework.web]': INFO
+  '[org.hibernate]': INFO
+  '[com.hillrent]': DEBUG
     
-    
+info:
+  application:
+   name: 'HillRent Backend App'
+   description: 'This is HillRent Backend app dev by HillRent Dev Team'
+   version: '@project.version@' 
+   #project versionu pom.xmlden alcak ust satirdaki komutla.(pom.xml'de 14.satirda)
     
     
     

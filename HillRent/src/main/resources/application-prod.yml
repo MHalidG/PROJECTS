@@ -1,0 +1,40 @@
+  
+logging:
+ file:
+  name: hillrent_prod.log
+ pattern:
+    file: "%d %-5level [%thread] %logger:%msg%n"
+    
+ level:
+  '[org.springframework.web]': INFO
+  '[org.hibernate]': INFO
+  '[com.hillrent]': INFO
+    
+    
+
+
+management:
+  endpoints:
+   web:
+    exposure:
+     include: ['info','health']
+    
+    
+  info:
+   env:
+    enabled: true
+    
+#aktif profile secmek icin Run seceneginden RunConfigurationsa girip Arguments titlesinde VM ARgumentse bu kodu yaziyoruz
+#-Dspring.profiles.active=prod
+#prod-dev veya baska hangi yaml profili varsa onu yazabiliyoruz
+
+#Projenin Jarini olusturmak icin klasor hiyerarsisinden HillRent base packageA sag tikliyoruz sonra orada RunAsMavenBuild
+#olarak calistiriyoruz ve jar dosyasini olusturup uygulamanin icindeki targetta jar file olusturuyor.
+#daha sonra ona sag tiklayip propertiese girip nereye indigini buluyoruz
+#Daha sonra java versionumuzun yuklu oldugu klasore gidiyoruz misal suanki dizinim asagidaki gibidir
+#C:\Program Files\Java\jdk-11.0.15.1\bin>
+#Bu pathe geldikten sonra java -jar jarin pathi
+#Bu uygulamada ayni asagidaki komutla calistiriyoruz
+#C:\Program Files\Java\jdk-11.0.15.1\bin>java -jar C:\Users\a\IdeaProjects\PROJECTS\HillRent\target\HillRent-1.0.0.jar
+#javanin kurulu oldugu path> java -jar uygulamainin jarinin pathi
+

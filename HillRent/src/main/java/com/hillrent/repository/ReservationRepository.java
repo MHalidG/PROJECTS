@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.hillrent.domain.Car;
 import com.hillrent.domain.Reservation;
 import com.hillrent.domain.User;
 import com.hillrent.domain.enums.ReservationStatus;
@@ -17,6 +18,10 @@ import com.hillrent.dto.ReservationDTO;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,Long>{
 
+	boolean existsByCarId(Car car);
+	
+	boolean existsByUserId(User user);
+	
 	List<ReservationDTO> findAllBy();
 	
 	Optional<ReservationDTO> findDTOById(Long id);

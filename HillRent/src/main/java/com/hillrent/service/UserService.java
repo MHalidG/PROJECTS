@@ -6,11 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +25,7 @@ import com.hillrent.exception.BadRequestException;
 import com.hillrent.exception.ConflictException;
 import com.hillrent.exception.ResourceNotFoundException;
 import com.hillrent.exception.message.ErrorMessage;
+import com.hillrent.repository.ReservationRepository;
 import com.hillrent.repository.RoleRepository;
 import com.hillrent.repository.UserRepository;
 
@@ -36,7 +34,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class UserService {
-
+	private ReservationRepository reservationRepository;
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 	private PasswordEncoder passwordEncoder;
@@ -172,6 +170,11 @@ public class UserService {
 		User user = userRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 
+		boolean exist=reservationRepository.existsByUserId(user);
+		if(exist) {
+			throw new BadRequestException(ErrorMessage.USER_USED_BY_RESERVATION_MESSAGE);
+		}
+		
 		if (user.getBuiltIn()) {
 			throw new BadRequestException(ErrorMessage.NOT_PERMITTED_METHOD_MESSAGE);
 		}
