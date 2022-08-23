@@ -12,5 +12,6 @@ public class ImageSavedResponse extends HRResponse {
 private String imageId;
 public ImageSavedResponse(String imageId, String message, boolean success) {
 	super(success,message);
+	this.imageId=imageId;
 }
 }

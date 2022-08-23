@@ -82,7 +82,7 @@ public class ReservationService {
 		reservation.setCarId(car);
 		reservation.setUserId(user);
 		
-		Double totalPrice = getTotalPrice(car, reservation.getPickUpTime(), reservation.getDropOffTime());
+		Double totalPrice = getTotalPrice(carId, reservation.getPickUpTime(), reservation.getDropOffTime());
 		reservation.setTotalPrice(totalPrice);
 		
 		reservationRepository.save(reservation);
@@ -110,7 +110,7 @@ public class ReservationService {
 				throw new BadRequestException(ErrorMessage.CAR_NOT_AVAILABLE_MESSAGE);
 			}
 		
-		Double totalPrice=getTotalPrice(car,reservationUpdateRequest.getPickUpTime(),reservationUpdateRequest.getDropOffTime());
+		Double totalPrice=getTotalPrice(carId,reservationUpdateRequest.getPickUpTime(),reservationUpdateRequest.getDropOffTime());
 		reservation.setTotalPrice(totalPrice);
 		reservation.setCarId(car);
 		reservation.setPickUpTime(reservationUpdateRequest.getPickUpTime());
@@ -122,10 +122,12 @@ public class ReservationService {
 	}
 	
 	
-	
-	private Double getTotalPrice(Car car,LocalDateTime pickUpTime,LocalDateTime dropOffTime) {
-		Long hours=(new Reservation()).getTotalHours(pickUpTime, dropOffTime);
-	
+public Double getTotalPrice(Long carId, LocalDateTime pickUpTime, LocalDateTime dropffTime) {
+		
+		Car car= carRepository.findById(carId).orElseThrow(()->new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, carId)));
+		
+		Long hours= (new Reservation()).getTotalHours(pickUpTime, dropffTime);
+		
 		return car.getPricePerHour()*hours;
 	}
 	
@@ -152,6 +154,14 @@ public class ReservationService {
 			throw new BadRequestException(ErrorMessage.RESERVATION_TIME_INCORRECT_MESSAGE);
 		}
 		
+	}
+
+	public void removeById(Long id) {
+		boolean exist=reservationRepository.existsById(id);
+		if(!exist) {
+			throw new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id));
+		}
+		reservationRepository.deleteById(id);
 	}
 	
 	

@@ -10,8 +10,13 @@ public final static String IMAGE_SAVED_RESPONSE_MESSAGE="Image File Saved Succes
 public final static String CAR_SAVED_RESPONSE_MESSAGE="Car Saved Successfully";
 public final static String CAR_UPDATED_RESPONSE_MESSAGE="Car Updated Successfully";
 public final static String CAR_DELETED_RESPONSE_MESSAGE="Car Deleted Successfully";
+public final static String CAR_AVAILABLE_MESSAGE="Car availability calculated";
+
+
 
 public final static String RESERVATION_SAVED_RESPONSE_MESSAGE="Reservation Saved Successfully";
 public final static String RESERVATION_UPDATE_RESPONSE_MESSAGE="Reservation Updated Successfully";
+public final static String RESERVATION_DELETED_RESPONSE_MESSAGE="Reservation Deleted Successfully";
+
 
 }
