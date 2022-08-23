@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.hillrent.domain.Reservation;
+import com.hillrent.domain.User;
 import com.hillrent.domain.enums.ReservationStatus;
 import com.hillrent.dto.ReservationDTO;
 
@@ -19,6 +20,8 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long>{
 	List<ReservationDTO> findAllBy();
 	
 	Optional<ReservationDTO> findDTOById(Long id);
+	
+	List<ReservationDTO> findAllByUserId(User userId);
 	
 	@Query("SELECT r FROM Reservation r "
 			+ "JOIN FETCH Car cd on r.carId=cd.id WHERE "

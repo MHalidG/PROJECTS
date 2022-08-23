@@ -13,6 +13,7 @@ import com.hillrent.domain.enums.ReservationStatus;
 import com.hillrent.dto.ReservationDTO;
 import com.hillrent.dto.mapper.ReservationMapper;
 import com.hillrent.dto.request.ReservationRequest;
+import com.hillrent.dto.request.ReservationUpdateRequest;
 import com.hillrent.exception.BadRequestException;
 import com.hillrent.exception.ResourceNotFoundException;
 import com.hillrent.exception.message.ErrorMessage;
@@ -42,11 +43,22 @@ public class ReservationService {
 	public List<ReservationDTO> getAllReservations(){
 		return reservationRepository.findAllBy();
 	}
+	
+	@Transactional(readOnly=true)
 	public ReservationDTO findById(Long id) {
 		return reservationRepository.findDTOById(id).orElseThrow(()->new 
 				ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, id)));
 		
 	}
+	
+	@Transactional(readOnly = true)
+	public List<ReservationDTO> findAllByUserId(Long userId){
+		User user=userRepository.findById(userId).orElseThrow(()->
+					new ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, userId)));
+		
+		return reservationRepository.findAllByUserId(user);
+	}
+	
 	
 	public void createReservation(ReservationRequest reservationRequest, Long userId,Long carId) {
 		
@@ -76,6 +88,40 @@ public class ReservationService {
 		reservationRepository.save(reservation);
 		
 	}
+	
+	public void updateReservation(Long reservationId, Long carId,ReservationUpdateRequest reservationUpdateRequest) {
+
+		Reservation reservation=reservationRepository.findById(reservationId).orElseThrow(()->new 
+		ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, carId)));
+		
+		checkReservationTimeIsCorrect(reservationUpdateRequest.getPickUpTime(), reservationUpdateRequest.getDropOffTime());
+		
+		Car car=carRepository.findById(carId).orElseThrow(()->new 
+				ResourceNotFoundException(String.format(ErrorMessage.RESOURCE_NOT_FOUND_MESSAGE, carId)));
+		
+		boolean carStatus=checkCarAvailability(carId, reservationUpdateRequest.getPickUpTime(), reservationUpdateRequest.getDropOffTime());
+		
+		if(reservationUpdateRequest.getPickUpTime().compareTo(reservation.getPickUpTime())==0&&
+			reservationUpdateRequest.getDropOffTime().compareTo(reservation.getDropOffTime())==0&&
+			car.getId().equals(reservation.getCarId().getId())){
+				
+				reservation.setStatus(reservationUpdateRequest.getStatus());
+			}else if(carStatus) {
+				throw new BadRequestException(ErrorMessage.CAR_NOT_AVAILABLE_MESSAGE);
+			}
+		
+		Double totalPrice=getTotalPrice(car,reservationUpdateRequest.getPickUpTime(),reservationUpdateRequest.getDropOffTime());
+		reservation.setTotalPrice(totalPrice);
+		reservation.setCarId(car);
+		reservation.setPickUpTime(reservationUpdateRequest.getPickUpTime());
+		 reservation.setDropOffTime(reservationUpdateRequest.getDropOffTime());
+		 reservation.setPickUpLocation(reservationUpdateRequest.getPickUpLocation());
+		 reservation.setDropOffLocation(reservationUpdateRequest.getDropOffLocation());
+		 
+		 reservationRepository.save(reservation);
+	}
+	
+	
 	
 	private Double getTotalPrice(Car car,LocalDateTime pickUpTime,LocalDateTime dropOffTime) {
 		Long hours=(new Reservation()).getTotalHours(pickUpTime, dropOffTime);
@@ -107,8 +153,6 @@ public class ReservationService {
 		}
 		
 	}
-
-	
 	
 	
 }

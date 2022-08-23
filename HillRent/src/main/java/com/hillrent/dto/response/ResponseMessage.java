@@ -12,5 +12,6 @@ public final static String CAR_UPDATED_RESPONSE_MESSAGE="Car Updated Successfull
 public final static String CAR_DELETED_RESPONSE_MESSAGE="Car Deleted Successfully";
 
 public final static String RESERVATION_SAVED_RESPONSE_MESSAGE="Reservation Saved Successfully";
+public final static String RESERVATION_UPDATE_RESPONSE_MESSAGE="Reservation Updated Successfully";
 
 }
