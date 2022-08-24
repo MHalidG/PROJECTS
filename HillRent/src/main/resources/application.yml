@@ -14,11 +14,28 @@ spring:
   username: carrentaluser
   password: admin
   driver-class-name: org.postgresql.Driver
+  
  jpa:
   show-sql: true
   database-platform: org.hibernate.dialect.PostgreSQLDialect
   hibernate:
     ddl-auto: update
+  properties:
+    format-sql: true
+    #hibernate:
+     #enable_lazy_load_no_trans: true
+     #antipatern iliskiler arastir
+     #Json
+     
+#defaultta bu ozellik true geliyor.Iliski lazy yapilsa bile view render edilene kadar veya Json datasi olusana kadar 
+#Transaction acik kaliyor.
+#  open-in-view: false
+  
+#spring.jpa.open-in-view is enabled by default
+#Open in view Hibernate de default olarak acik geliyor
+#Bu da many to many iliskilerde lazy yapsaniz bile iliskili objelerin tamamini cekiyor
+#controllera kadar getiriyor view de gostermiyor yalnizca. Bu da security acigi olusturuyor.
+#Iliskiyi lazy yaptiysak lazy olsun
 
  servlet:
     multipart:
