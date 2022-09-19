@@ -1,0 +1,10 @@
+https://www.sakirmehmetoglu.com.tr/libgdx-nedir-nasil-kurulur
+//Java Oyun Kutuphanesi
+
+
+https://developer.mozilla.org/en-US/docs/Games/Introduction
+//Java script kutuphanesi
+
+
+https://www.youtube.com/watch?v=limU9WJUjpA
+//libgdx Youtube playlist

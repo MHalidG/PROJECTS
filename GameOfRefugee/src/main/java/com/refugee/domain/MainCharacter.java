@@ -18,8 +18,21 @@ public class MainCharacter {
 	@Column(length= 36, nullable= false)
 	private String name;
 	
-	@Column
-	private String nam;
+	
+	private String position;
+
+	
+	private String swordsSkillType; //Kilic sanatlarini olusturup birbirlerine ustunluklerini ayarlicaz
+	
+	
+	private String intelligentType;	//Tuccar, Siyasi, Savasci, Casus, Emekci, Suclu, 
+	
+	//Her Zeka Turunun kendine has alt puanlari olacak,
+	//Her klass kendi pointlerinde kasmaya calismali. Level sistemi lazim.
+	
+	
+
+	
 	
 	
 }
