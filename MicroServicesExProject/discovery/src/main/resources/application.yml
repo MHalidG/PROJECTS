@@ -1,0 +1,27 @@
+server:
+  port: 8097
+
+#Eureka client need to register with eureka server to become discoverable. 
+#Eureka server can act as client as well. So setting 
+#registerWith Eureka and fetchRegistry to false is mandatory
+
+#Only clients need to fetch registry to get the registered 
+#microservices for communication EurekaServer need not register 
+#itself and also need not fetch other registered Microservices
+
+#Eureka istemcisinin kesfedilebilir olması icin eureka sunucusuna kaydolmasi gerekir.
+#Eureka sunucusu istemci olarak da görev yapabilir. yani ayar
+#registerEureka ve fetchRegistry ile false yapmak zorunludur
+#Yalnizca müsterilerin kayitli olani almak için kayit getirmesi gerekir
+#iletisim icin mikroservisler EurekaServer'in kaydolmasi gerekmez
+#itself ve ayrica diger kayitli Mikroservisleri getirmenize gerek yok
+#Kendi kendini eureka servise kaydettirmemesi icin false ayarladik asagida
+  
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
