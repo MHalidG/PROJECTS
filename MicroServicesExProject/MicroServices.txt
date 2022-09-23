@@ -1,0 +1,72 @@
+Ufak iyi secilmis deployedilebilir parcaciklar.
+
+Service Oriented Architecture le karisiyor microservis ama farklidir
+SOA daha enterprise bir scopea sahiptir
+
+The Eureka Service Discovery framework
+Spring Service Discovery Framework ayni sey
+Microservis frameworku
+Discovery 
+Config
+GateWay
+ReservationService
+CarService
+
+Calisma Sekli
+
+
+
+Discovery Server:
+Euroka Server'dir. Birbiriyle iliskili olacak client microservislerin bilgilerinin tutuldugu serverdir
+Microservicelerin birbirlerinin locasyonunu bilmesine gerek kalmiyor.
+
+Gateway:
+Clienttan gelen istekler Gatewayde gidecekleri microservice'e yonlendirilirler. Resmi dairenin danismasi gibi ne icin geldiklerini sorup ilgili kata/odaya yonlendiriyor.
+Monolitik yapidaki uygulamalardaki Controllera da cok az benziyor.
+	
+
+Config:
+Merkezi Configurasyon ayari yapabilmemizi sagliyor her microservice'in ayarini ayri ayri tutmaktansa merkezi bir config serverinda tutuyoruz.
+
+
+Micro Uygulama Orneklerimiz:
+Bu sistemde birbiriyle kkonusarak calisacak 2 tane ornek uygulamamiz/Servicemiz mevcut
+Bunun Haricinde Gateway ve Config Serverimizda Eureka Serverimiza baglanarak calisiyor.
+
+
+1-Reservation-Service:
+
+
+
+2-Car-Service:
+
+
+
+
+Gerekli configurasyonlari yaptiktan sonra once Discovery server calistirildi
+Eureka Discovery Server calistirildiktan sonra calistigi urlye gidilerek bagli uygulamalar gorulebiliyor. Eureka server aarayuzune ulasabiliriz.
+http://localhost:8097
+
+
+Daha sonra Merkezi Config Serverin calismasi gerekiyor ki diger uygulamalar configten kaynakli(Database jpadan oturu vs) hata vermeden calisabilsin.
+Uygulamalari calistirirken Config ayarlarina dikkat edilmeli. Uygulamalarin calistirilacagi portlarin bos olduklarindan emin olunmali.
+reservation service application.yml da yapilacak kurulum configleri asagida yazilmistir.
+
+server:
+  port: 8081
+  
+spring:
+ application:
+  name: reservation-service
+
+
+ config:
+  import: optional:configserver:http://localhost:8090
+
+
+port8081 de calisacagi belirlendi ve gerekli congif ayarlarini da central config uygulamasinin adresi verilerek oradan import edilecegi soylendi.
+ayni adimlar eureka serverda kayit olan tum servisler icin uygulandi
+H2 Gecici data bellegiyle calisan servis de ayaga kaldirildi
+H2 database interfacesine erismek icin 
+http://localhost:8082/h2-console/ yazildi ve 
+JDBC URL:jdbc:h2:mem:testdb ilgili kisim bu sekilde dolduruldu ve kullanilmaya baslandi
