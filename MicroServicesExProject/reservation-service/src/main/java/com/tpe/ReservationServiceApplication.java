@@ -1,5 +1,8 @@
 package com.tpe;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.modelmapper.convention.NamingConventions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -19,6 +22,15 @@ public class ReservationServiceApplication {
 		return new RestTemplate();
 	}
 	
+	@Bean 
+	public ModelMapper modelMapper() {
+		ModelMapper modelMapper=new ModelMapper();
+		modelMapper.getConfiguration()
+		.setFieldMatchingEnabled(true)
+		.setFieldAccessLevel(AccessLevel.PRIVATE)
+		.setSourceNamingConvention(NamingConventions.JAVABEANS_MUTATOR);
+		return modelMapper;
+	}
 	
 	
 }

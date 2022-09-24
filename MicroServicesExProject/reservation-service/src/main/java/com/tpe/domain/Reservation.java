@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tpe.enums.ReservationStatus;
 
 import lombok.AllArgsConstructor;
@@ -34,7 +35,7 @@ public class Reservation {
 
 	@Column(nullable = false)
 	private Long carId;
-
+	
 	@Column(nullable = false)
 	private LocalDateTime pickUpTime;
 	
@@ -49,6 +50,9 @@ public class Reservation {
 
 	@Column(nullable = false)
 	private ReservationStatus status;
+
+	@Column(nullable = false)
+	private Double totalPrice;
 	
 	public Long getTotalHours(LocalDateTime pickUpTime,LocalDateTime dropOffTime) {
 		return ChronoUnit.HOURS.between(pickUpTime, dropOffTime);

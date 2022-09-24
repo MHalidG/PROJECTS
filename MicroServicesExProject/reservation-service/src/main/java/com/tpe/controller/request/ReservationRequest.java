@@ -16,10 +16,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ReservationRequest {
 
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy HH:ms:ss", timezone= "Turkey")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy HH:mm:ss", timezone= "Turkey")
 	private LocalDateTime pickUpTime;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy HH:ms:ss", timezone= "Turkey")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy HH:mm:ss", timezone= "Turkey")
 	private LocalDateTime dropOffTime;
 	
 	private String pickUpLocation;
