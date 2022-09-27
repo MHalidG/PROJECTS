@@ -1,0 +1,19 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://localhost:8097/eureka"
+      
+        
+##spring:      
+ ##cloud:   
+  ##gateway:
+   ##routes:
+    ## - id: reservationModule
+     ##  uri: http://localhost:8081/
+       ##predicates:
+      ## - Path=/reservation/**
+       
+     ##- id: carModule
+       ##uri: http://localhost:8082/
+       ##predicates:
+      ## - Path=/car/** 

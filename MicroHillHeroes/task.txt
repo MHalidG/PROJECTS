@@ -1,0 +1,8 @@
+yamllar ayarlandi. Discovery servera baglanmaya hazirlar
+
+Her uygulamanin database configleri ayarlanmali.
+security mekanizmasi ayarlanmali
+dokumantasyonu da adim adim yazmaya basla
+
+hangi uygulama hangi portta calisiyor vs gibi temel bi dokumantasyon
+sectigin guvenlik mekanizmasini ve uygulamanin calisma seklini
