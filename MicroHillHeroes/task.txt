@@ -6,3 +6,5 @@ dokumantasyonu da adim adim yazmaya basla
 
 hangi uygulama hangi portta calisiyor vs gibi temel bi dokumantasyon
 sectigin guvenlik mekanizmasini ve uygulamanin calisma seklini
+
+Muhafiz Projesinin Security Pomu eklendi Filterlar ve user create login islemleri ayarlanacak
