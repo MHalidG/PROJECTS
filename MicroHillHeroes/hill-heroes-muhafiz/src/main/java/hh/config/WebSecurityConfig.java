@@ -1,5 +1,7 @@
 package hh.config;
 
-public class WebSecurityConfig {
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+
+public class WebSecurityConfig extends WebSecurityConfiguration{
 
 }
