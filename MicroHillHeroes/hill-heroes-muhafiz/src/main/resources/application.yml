@@ -7,5 +7,11 @@ spring:
   name: muhafiz-service
 
 
+hillheroes:
+ app:
+  jwtSecret: hillheroessec@sungur
+  jwtExpirationMs: 8640000
+
+
  config:
   import: optional:configserver:http://localhost:8090
