@@ -1,4 +1,4 @@
-package hh.dto;
+package hh.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

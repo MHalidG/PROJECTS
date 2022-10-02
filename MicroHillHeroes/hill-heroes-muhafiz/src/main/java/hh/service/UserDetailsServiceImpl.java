@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import hh.domain.User;
-import hh.exceptions.UserExceptions;
+import hh.lib.error.ErrorMessages;
 import hh.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		User user=userRepository.findByUserName(username).orElseThrow(()->new 
-				UsernameNotFoundException(String.format(UserExceptions.USER_NOT_FOUND_MESSAGE, username)));
+				UsernameNotFoundException(String.format(ErrorMessages.USER_NOT_FOUND_MESSAGE, username)));
 		
 		return UserDetailsImpl.build(user);
 	}
