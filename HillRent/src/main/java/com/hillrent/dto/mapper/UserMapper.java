@@ -8,12 +8,12 @@ import org.mapstruct.Mapping;
 import com.hillrent.domain.User;
 import com.hillrent.dto.UserDTO;
 import com.hillrent.dto.request.AdminUserUpdateRequest;
+import com.hillrent.dto.request.UserUpdateRequest;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
 	
-
 	UserDTO userToUserDTO(User user);
 	List<UserDTO> map(List<User> user);
 
@@ -21,7 +21,6 @@ public interface UserMapper {
 	@Mapping(target="roles", ignore=true)
 	User adminUserUpdateRequestToUser(AdminUserUpdateRequest request);
 
-
-
+	
 }
 

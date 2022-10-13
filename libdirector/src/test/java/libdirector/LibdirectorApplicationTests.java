@@ -10,4 +10,7 @@ class LibdirectorApplicationTests {
 	void contextLoads() {
 	}
 
+	
+	@Test
+	void saveUser() {}
 }

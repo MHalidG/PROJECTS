@@ -1,17 +1,18 @@
-/*package libdirector.domain.dto;
+package libdirector.domain.dto;
 import java.time.LocalDateTime;
 import java.util.Date;
+
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
-//@Table(name = "tbl_users")
 public class UserDTO {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,7 +56,7 @@ public class UserDTO {
 
 
 	@Size(min=10,max=80)
-	@Column(nullable = false/*,unique = true)
+	@Column(nullable = false,unique = true)
 	@Email(message="Provide valid email")
 	private String email;
 	
@@ -77,4 +76,4 @@ public class UserDTO {
 	private Boolean builtIn=false;
 	
 	
-}*/
+}

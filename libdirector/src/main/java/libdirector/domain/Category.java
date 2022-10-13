@@ -19,7 +19,6 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long id;
 
 
@@ -28,7 +27,7 @@ public class Category {
 
 
     @Column(nullable = false)
-    private Boolean builtin=false;
+    private Boolean builtIn=false;
 
 
 
