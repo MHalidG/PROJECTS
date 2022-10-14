@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import libdirector.domain.Book;
+import libdirector.domain.Loan;
 import libdirector.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,4 +43,19 @@ public class LoanDTO {
 	
 	@Size(max=300)
 	private String notes;
+	
+	
+	public LoanDTO(Loan loan) {
+		this.id=loan.getId();
+		this.userLoan=loan.getUserLoan();
+		this.loanedBooks=loan.getLoanedBooks();
+		this.expireDate=loan.getExpireDate();
+		this.loanDate=loan.getLoanDate();
+		this.returnDate=loan.getReturnDate();
+		this.notes=loan.getNotes();
+	}
+	
+	
+	
+	
 }
